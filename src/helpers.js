@@ -18,6 +18,7 @@ export function checkConfig () {
 }
 
 export function loadScript (callback, scriptSrc=config.scriptSrc) {
+    if (typeof document === 'undefined') {return}
     var head = document.head || document.getElementsByTagName('head')[0]
     const script = document.createElement('script')
 
@@ -42,8 +43,7 @@ export function createMetrika (app) {
         }
         const metrika = new Ya.Metrika2(init)
         window[`yaCounter${config.id}`] = metrika
-        app.config.globalProperties.$metrika = metrika
-        app.provide('metrika', metrika)
+        return app.config.globalProperties.$metrika = metrika
 
     } else {
 
@@ -65,8 +65,7 @@ export function createMetrika (app) {
             userParams() {if (config.debug) {console.log('[vue-yandex-metrika] userParams:', arguments)}}
         }
 
-        app.config.globalProperties.$metrika = metrika
-        app.provide('metrika', metrika)
+        return app.config.globalProperties.$metrika = metrika
     }
 }
 
