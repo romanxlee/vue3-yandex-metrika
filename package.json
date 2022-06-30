@@ -1,5 +1,5 @@
 {
-  "name": "vue3-yandex-metrika",
+  "name": "vue-yandex-metrika-v3",
   "version": "0.0.0-development",
   "description": "Yandex Metrika plugin for Vue 3",
   "repository": {
@@ -38,7 +38,7 @@
     "Яндекс Метрика",
     "яндекс метрика"
   ],
-  "main": "dist/vue-yandex-metrika.js",
+  "main": "dist/vue3-yandex-metrika.js",
   "files": [
     "dist"
   ],
