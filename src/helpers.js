@@ -12,13 +12,13 @@ export function updateConfig (params) {
 export function checkConfig () {
 
     // Checks if config is valid
-    if (typeof document === 'undefined') {return}
+    if (typeof window === 'undefined') {return}
     if (!config.id) {throw new Error('[vue-yandex-metrika] Please enter a Yandex Metrika tracking ID')}
     if (!config.router && config.env !== 'production') {return console.warn('[vue-yandex-metrika] Router is not passed, autotracking is disabled')}
 }
 
 export function loadScript (callback, scriptSrc=config.scriptSrc) {
-    if (typeof document === 'undefined') {return}
+    if (typeof window === 'undefined') {return}
     var head = document.head || document.getElementsByTagName('head')[0]
     const script = document.createElement('script')
 
