@@ -1,16 +1,19 @@
-import Vue from 'vue'
-import VueRouter from 'vue-router'
+import { createApp } from 'vue'
+import { createRouter, createWebHashHistory } from "vue-router"
 import VueYandexMetrika from '../src/index'
 
 import config from '../src/config'
 import * as helpers from '../src/helpers'
 
-Vue.use(VueRouter)
+const app = createApp(() => {
+    document.createElement('div')
+})
+
 const routes = [
     {name: 'main', path: '/init', component: {render: h => h('div')}},
     {name: 'test', path: '/test', component: {render: h => h('div')}}
 ]
-const router = new VueRouter({mode: 'hash', routes})
+const router = createRouter({mode: 'hash', history: createWebHashHistory(), routes})
 
 // Yandex Metrika mock
 global.Ya = {Metrika() {return {hit() {return}}}}
@@ -19,14 +22,14 @@ global.Ya = {Metrika() {return {hit() {return}}}}
 describe('checkConfig', () => {
     it ('should throw an error if the Metrika id is missing', () => {
         expect(() => {
-            Vue.use(VueYandexMetrika, {})
+            app.use(VueYandexMetrika, {})
         }).toThrowError()
     })
 })
 
 describe('checkConfig', () => {
     it ('manualMode notification', () => {
-        Vue.use(VueYandexMetrika, {id: 1})
+        app.use(VueYandexMetrika, {id: 1})
     })
 })
 
@@ -34,7 +37,7 @@ describe('checkConfig', () => {
 describe('checkConfig', () => {
     it ('should pass checkConfig', () => {
         expect(() => {
-            Vue.use(VueYandexMetrika, {id: 1, router})
+            app.use(VueYandexMetrika, {id: 1, router})
         }).not.toThrowError()
     })
 })
@@ -59,7 +62,7 @@ describe('updateConfig', () => {
 describe('tracking', () => {
     it ('manualMode', () => {
         helpers.updateConfig({id: 1})
-        var metrika = helpers.createMetrika(Vue)
+        var metrika = helpers.createMetrika(app)
         helpers.startTracking(metrika)
     })
 })
@@ -68,7 +71,7 @@ describe('tracking', () => {
 describe('tracking', () => {
     it ('debug', () => {
         helpers.updateConfig({id: 1, router, debug: true})
-        var metrika = helpers.createMetrika(Vue)
+        var metrika = helpers.createMetrika(app)
         helpers.startTracking(metrika)
     })
 })
@@ -76,7 +79,7 @@ describe('tracking', () => {
 describe('tracking', () => {
     it ('development', () => {
         helpers.updateConfig({id: 1, router, debug: false})
-        var metrika = helpers.createMetrika(Vue)
+        var metrika = helpers.createMetrika(app)
         helpers.startTracking(metrika)
     })
 })
@@ -84,7 +87,7 @@ describe('tracking', () => {
 describe('tracking', () => {
     it ('skipSamePath', () => {
         helpers.updateConfig({id: 1, router})
-        var metrika = helpers.createMetrika(Vue)
+        var metrika = helpers.createMetrika(app)
         helpers.startTracking(metrika)
         router.push('/init') // init
         router.push('/init#samePath') // triggers samePath
@@ -95,7 +98,7 @@ describe('tracking', () => {
 describe('tracking', () => {
     it ('ignoreRoutes', () => {
         helpers.updateConfig({id: 1, router, ignoreRoutes: ['test']})
-        var metrika = helpers.createMetrika(Vue)
+        var metrika = helpers.createMetrika(app)
         helpers.startTracking(metrika)
         router.push('/init') // init
         router.push('/test') // triggers ignoreRoutes
@@ -106,7 +109,7 @@ describe('tracking', () => {
 describe('tracking', () => {
     it ('metrika.hit', () => {
         helpers.updateConfig({id: 1, router})
-        var metrika = helpers.createMetrika(Vue)
+        var metrika = helpers.createMetrika(app)
         helpers.startTracking(metrika)
         router.push('/init') // init
         router.push('/test') // triggers hit

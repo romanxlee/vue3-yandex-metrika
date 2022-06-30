@@ -1,26 +1,6 @@
-<p align="center">
-    <img src="https://i.imgur.com/iu7VdZ7.png" />
-    <br>
-    <br>
-    <a href="https://badge.fury.io/js/vue-yandex-metrika">
-        <img src="https://badge.fury.io/js/vue-yandex-metrika.svg" />
-    </a>
-    <a href="https://www.npmjs.com/package/vue-yandex-metrika">
-        <img src="https://img.shields.io/npm/dm/vue-yandex-metrika.svg" />
-    </a>
-    <br>
-    <a href="https://travis-ci.org/vchaptsev/vue-yandex-metrika">
-        <img src="https://travis-ci.org/vchaptsev/vue-yandex-metrika.svg?branch=master" />
-    </a>
-    <a href='https://coveralls.io/github/vchaptsev/vue-yandex-metrika?branch=master'>
-        <img src='https://coveralls.io/repos/github/vchaptsev/vue-yandex-metrika/badge.svg?branch=master' />
-    </a>
-</p>
+# Vue 3 Yandex Metrika
 
-
-# Vue Yandex Metrika
-
-**vue-yandex-metrika** allows you to send data about visited pages to [Yandex Metrika].
+**vue3-yandex-metrika** allows you to send data about visited pages to [Yandex Metrika].
 
 ## Installation
 
@@ -44,18 +24,23 @@ $ npm install vue-yandex-metrika --save
 Pass the` VueRouter` instance to the plugin and let it handle everything for you ([Metrika API] is also available):
 ```javascript
 // your main.js
-import Vue from 'vue'
-import VueRouter from 'vue-router'
-import VueYandexMetrika from 'vue-yandex-metrika'                               
+import { createApp } from 'vue'
+import { createRouter } from "vue-router";
+import VueYandexMetrika from 'vue-v3-yandex-metrika'                               
 
-const router = new VueRouter({...}) // your routes
+const router = createRouter({...}) // your routes
 
-Vue.use(VueYandexMetrika, {
-    id: XXXXXXXX,
-    router: router,
-    env: process.env.NODE_ENV
+const app = createApp(App)
+
+app.use(router)
+app.use(VueYandexMetrika, {
+	id: XXXXXXXX,
+	router: router,
+	env: process.env.NODE_ENV
     // other options
 })
+
+app.mount( '#app')
 ```
 
 
@@ -64,10 +49,10 @@ Vue.use(VueYandexMetrika, {
 Works without router: [Metrika API]
 ```javascript
 // your main.js
-import Vue from 'vue'
-import VueYandexMetrika from 'vue-yandex-metrika'                               
+import { createApp } from 'vue'
+import VueYandexMetrika from 'vue-v3-yandex-metrika'
 
-Vue.use(VueYandexMetrika, {
+app.use(VueYandexMetrika, {
     id: XXXXXXXX,
     env: process.env.NODE_ENV
     // other options
@@ -76,6 +61,7 @@ Vue.use(VueYandexMetrika, {
 ___
 
 ```javascript
+// with Options API
 // your code
 this.$metrika.hit(path)
 ```
