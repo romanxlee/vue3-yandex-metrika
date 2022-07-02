@@ -1,19 +1,19 @@
 # Vue 3 Yandex Metrika
 
-**vue3-yandex-metrika** allows you to send data about visited pages to [Yandex Metrika].
+**vue-yandex-metrika-v3** allows you to send data about visited pages to [Yandex Metrika].
 
 ## Installation
 
 Install with [yarn]:
 
 ```bash
-$ yarn add vue-yandex-metrika
+$ yarn add vue-yandex-metrika-v3
 ```
 
 Install with [npm]:
 
 ```bash
-$ npm install vue-yandex-metrika --save
+$ npm install vue-yandex-metrika-v3 --save
 ```
 
 
@@ -26,7 +26,7 @@ Pass the` VueRouter` instance to the plugin and let it handle everything for you
 // your main.js
 import { createApp } from 'vue'
 import { createRouter } from "vue-router";
-import VueYandexMetrika from 'vue-v3-yandex-metrika'                               
+import VueYandexMetrika from 'vue-yandex-metrika-v3'                               
 
 const router = createRouter({...}) // your routes
 
@@ -50,7 +50,7 @@ Works without router: [Metrika API]
 ```javascript
 // your main.js
 import { createApp } from 'vue'
-import VueYandexMetrika from 'vue-v3-yandex-metrika'
+import VueYandexMetrika from 'vue-yandex-metrika-v3'
 
 app.use(VueYandexMetrika, {
     id: XXXXXXXX,
